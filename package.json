@@ -1,0 +1,21 @@
+{
+  "name": "prot-imagemin",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "archiver": "^7.0.1",
+    "electron": "^32.1.2",
+    "imagemin": "^9.0.0",
+    "imagemin-mozjpeg": "^10.0.0",
+    "imagemin-pngquant": "^10.0.0",
+    "imagemin-svgo": "^11.0.1"
+  }
+}

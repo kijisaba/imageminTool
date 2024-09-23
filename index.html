@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+	<meta charset="UTF-8">
+	<title>Image Compressor</title>
+</head>
+<body>
+	<h1>Image Compressor</h1>
+	<button id="select-images">Select Images</button>
+	<button id="compress-images">Compress Images</button>
+	<div id="status"></div>
+
+	<script>
+		const selectButton = document.getElementById('select-images');
+		const compressButton = document.getElementById('compress-images');
+		const statusDiv = document.getElementById('status');
+		let filePaths = [];
+
+		selectButton.addEventListener('click', async () => {
+			filePaths = await window.electronAPI.selectImages();
+			statusDiv.innerText = `${filePaths.length} files selected.`;
+		});
+
+		compressButton.addEventListener('click', async () => {
+			if (filePaths.length === 0) {
+				statusDiv.innerText = 'No files selected.';
+				return;
+			}
+			const outputPath = await window.electronAPI.compressImages(filePaths);
+			statusDiv.innerText = `Images compressed to ${outputPath}.`;
+		});
+	</script>
+</body>
+</html>
