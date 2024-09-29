@@ -45,13 +45,23 @@ ipcMain.handle('select-images', async () => {
 });
 
 ipcMain.handle('compress-images', async (event, files) => {
-	const outputDir = path.join(__dirname, 'compressed');
-	if (!fs.existsSync(outputDir)) {
-		fs.mkdirSync(outputDir);
+	// 保存先フォルダを選択するダイアログを表示
+	const { canceled, filePaths } = await dialog.showOpenDialog({
+		properties: ['openDirectory']
+	});
+	// キャンセルされた場合は処理を中止
+	if (canceled || filePaths.length === 0) {
+		return null;
 	}
 
+	const outputDir = filePaths[0];
+
+	// 一時ディレクトリを作成して圧縮画像を保存
+	const tempDir = path.join(outputDir, 'temp_compressed');
+	fs.mkdirSync(tempDir, { recursive: true });
+
 	const compressedFiles = await imagemin(files, {
-		destination: outputDir,
+		destination: tempDir,
 		plugins: [
 			imageminMozjpeg({ quality: 75 }),
 			imageminPngquant({ quality: [0.6, 0.8] }),
@@ -59,21 +69,24 @@ ipcMain.handle('compress-images', async (event, files) => {
 		]
 	});
 
-	if (compressedFiles.length === 1) {
-		return compressedFiles[0].destinationPath;
-	} else {
-		const zipPath = path.join(outputDir, 'images.zip');
-		const output = fs.createWriteStream(zipPath);
-		const archive = archiver('zip', {
-			zlib: { level: 9 }
-		});
+	// ZIPファイルのパスを設定
+	const zipPath = path.join(outputDir, 'compressed-images.zip');
+	const output = fs.createWriteStream(zipPath);
+	const archive = archiver('zip', {
+		zlib: { level: 9 }
+	});
 
-		archive.pipe(output);
-		compressedFiles.forEach(file => {
-			archive.file(file.destinationPath, { name: path.basename(file.destinationPath) });
-		});
-		await archive.finalize();
+	// 圧縮した画像をZIPに追加
+	archive.pipe(output);
+	compressedFiles.forEach(file => {
+		archive.file(file.destinationPath, { name: path.basename(file.destinationPath) });
+	});
 
-		return zipPath;
-	}
+	await archive.finalize();
+
+	// 一時ディレクトリを削除して個別の圧縮画像を削除
+	fs.rmSync(tempDir, { recursive: true, force: true });
+
+	// ZIPファイルのパスを返す
+	return zipPath;
 });

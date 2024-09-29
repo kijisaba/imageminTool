@@ -27,8 +27,13 @@
 				return;
 			}
 			const outputPath = await window.electronAPI.compressImages(filePaths);
-			statusDiv.innerText = `Images compressed to ${outputPath}.`;
+			if (outputPath) {
+				statusDiv.innerText = `Images compressed to ${outputPath}.`;
+			} else {
+				statusDiv.innerText = 'Compression canceled.';
+			}
 		});
 	</script>
+
 </body>
 </html>
