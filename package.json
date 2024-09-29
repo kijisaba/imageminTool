@@ -4,7 +4,8 @@
   "type": "module",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "build": "electron-packager ."
   },
   "keywords": [],
   "author": "",
@@ -17,5 +18,8 @@
     "imagemin-mozjpeg": "^10.0.0",
     "imagemin-pngquant": "^10.0.0",
     "imagemin-svgo": "^11.0.1"
+  },
+  "devDependencies": {
+    "electron-packager": "^17.1.2"
   }
 }
