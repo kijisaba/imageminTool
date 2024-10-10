@@ -3,12 +3,41 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Image Compressor</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css" integrity="sha384-X38yfunGUhNzHpBaEBsWLO+A0HDYOQi8ufWDkZ0k9e0eXz/tH3II7uKZ9msv++Ls" crossorigin="anonymous">
+	<link rel="stylesheet" href="style.css">
 </head>
 <body>
-	<h1>Image Compressor</h1>
-	<button id="select-images">Select Images</button>
-	<button id="compress-images">Compress Images</button>
-	<div id="status"></div>
+	<div class="contents">
+		<div class="pure-g">
+			<div class="pure-u-1">
+				<h1>画像圧縮ツールVer0.1</h1>
+			</div>
+			<div class="pure-u-1">
+				<ul>
+					<li>1回に最大20枚まで画像サイズを削減することができます。</li>
+					<li>圧縮された画像はzipファイルで保存されます。</li>
+					<li>jpg,png,svgに対応しています。</li>
+				</ul>
+			</div>
+			<div class="pure-u-1">
+				<h2>使い方</h2>
+			</div>
+			<div class="pure-u-1">
+				<ol>
+					<li>「画像を選択する」をクリックして、圧縮したい画像を選択してください。</li>
+					<li>「画像を圧縮する」をクリックしてzipファイルの保存場所を選択してください。</li>
+					<li>保存場所を選択すると、指定した保存場所に「compressed-images.zip」が保存されます。
+					</li>
+				</ol>
+			</div>
+		</div>
+			<div class="control">
+				<button id="select-images" class="pure-button">画像を選択する</button>
+				<button id="compress-images" class="pure-button">画像を圧縮する</button>
+				<div id="status"></div>
+			</div>
+	</div>
+
 
 	<script>
 		const selectButton = document.getElementById('select-images');
