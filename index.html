@@ -3,66 +3,66 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Image Compressor</title>
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css" integrity="sha384-X38yfunGUhNzHpBaEBsWLO+A0HDYOQi8ufWDkZ0k9e0eXz/tH3II7uKZ9msv++Ls" crossorigin="anonymous">
+	<link rel="stylesheet" href="reset.css">
 	<link rel="stylesheet" href="style.css">
 </head>
+
+
+
 <body>
-	<div class="contents">
-		<div class="pure-g">
-			<div class="pure-u-1">
-				<h1>画像圧縮ツールVer0.1</h1>
-			</div>
-			<div class="pure-u-1">
-				<ul>
-					<li>1回に最大20枚まで画像サイズを削減することができます。</li>
-					<li>圧縮された画像はzipファイルで保存されます。</li>
-					<li>jpg,png,svgに対応しています。</li>
-				</ul>
-			</div>
-			<div class="pure-u-1">
-				<h2>使い方</h2>
-			</div>
-			<div class="pure-u-1">
-				<ol>
-					<li>「画像を選択する」をクリックして、圧縮したい画像を選択してください。</li>
-					<li>「画像を圧縮する」をクリックしてzipファイルの保存場所を選択してください。</li>
-					<li>保存場所を選択すると、指定した保存場所に「compressed-images.zip」が保存されます。
-					</li>
-				</ol>
-			</div>
-		</div>
-			<div class="control">
-				<button id="select-images" class="pure-button">画像を選択する</button>
-				<button id="compress-images" class="pure-button">画像を圧縮する</button>
-				<div id="status"></div>
-			</div>
+<div class="contents">
+	<h1 class="h01">画像圧縮ツールVer0.1</h1>
+	<div class="div01">
+		<button id="select-images" class="button01">画像を選択する</button>
+		<button id="compress-images" class="button02">画像を圧縮する</button>
+		<div id="status"></div>
 	</div>
+	<div class="div02">
+		<ul class="ul01">
+			<li>1回に最大20枚まで画像サイズを削減することができます。</li>
+			<li>圧縮された画像はzipファイルで保存されます。</li>
+			<li>jpg,png,svgに対応しています。</li>
+		</ul>
+	</div>
+	<h2 class="h02">使い方</h2>
+	<div class="div03">
+		<ol class="ol01">
+			<li>「画像を選択する」をクリックして、圧縮したい画像を選択してください。</li>
+			<li>「画像を圧縮する」をクリックしてzipファイルの保存場所を選択してください。</li>
+			<li>保存場所を選択すると、指定した保存場所に「compressed-images.zip」が保存されます。
+			</li>
+		</ol>
+	</div>
+</div>
 
 
-	<script>
-		const selectButton = document.getElementById('select-images');
-		const compressButton = document.getElementById('compress-images');
-		const statusDiv = document.getElementById('status');
-		let filePaths = [];
 
-		selectButton.addEventListener('click', async () => {
-			filePaths = await window.electronAPI.selectImages();
-			statusDiv.innerText = `${filePaths.length} files selected.`;
-		});
+<script>
+	const selectButton = document.getElementById('select-images');
+	const compressButton = document.getElementById('compress-images');
+	const statusDiv = document.getElementById('status');
+	let filePaths = [];
 
-		compressButton.addEventListener('click', async () => {
-			if (filePaths.length === 0) {
-				statusDiv.innerText = 'No files selected.';
-				return;
-			}
-			const outputPath = await window.electronAPI.compressImages(filePaths);
-			if (outputPath) {
-				statusDiv.innerText = `Images compressed to ${outputPath}.`;
-			} else {
-				statusDiv.innerText = 'Compression canceled.';
-			}
-		});
-	</script>
+	selectButton.addEventListener('click', async () => {
+		filePaths = await window.electronAPI.selectImages();
+		statusDiv.innerText = `${filePaths.length} files selected.`;
+	});
+
+	compressButton.addEventListener('click', async () => {
+		if (filePaths.length === 0) {
+			statusDiv.innerText = 'No files selected.';
+			return;
+		}
+		const outputPath = await window.electronAPI.compressImages(filePaths);
+		if (outputPath) {
+			statusDiv.innerText = `Images compressed to ${outputPath}.`;
+		} else {
+			statusDiv.innerText = 'Compression canceled.';
+		}
+	});
+</script>
+
+
 
 </body>
 </html>

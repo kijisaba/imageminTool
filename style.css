@@ -1,3 +1,77 @@
+/* CSS変数 */
+:root {
+	/* Color */
+	--primary-color: #2C6A45;
+	--secondary-color: #4F6354;
+	--outline-color: #717971;
+	--on-surface-text: #181D19;
+	--surface-color: #F6FBF3;
+}
+
+body {
+	background: var(--surface-color);
+}
 .contents {
-	padding: 1rem;
+	padding: 64px;
+	& .h01 {
+		color: var(--primary-color);
+		font-size: 36px;
+		font-weight: normal;
+		line-height: 1.2222;
+	}
+	& .div01 {
+		padding-top: 48px;
+		& .button01,.button02 {
+				appearance: none;
+				border-radius: 100px;
+				font-size: 14px;
+				line-height: 1.4285;
+				padding: 10px 24px;
+			}
+			& .button01 {
+				background: transparent;
+				border-color: var(--primary-color);
+				border-style: solid;
+				border-width: 1px;
+				color: var(--primary-color);
+			}
+			& .button01:hover {
+				background: color-mix(in srgb, var(--primary-color) 8%, transparent);
+			}
+			& .button02 {
+				background: var(--primary-color);
+				border-color: var(--primary-color);
+				border-style: solid;
+				border-width: 1px;
+				color: #ffffff;
+				margin-left: 12px;
+			}
+			& .button02:hover {
+				background: color-mix(in srgb, var(--primary-color) 90%, transparent);
+			}
+	}
+	& .div02 {
+		padding-top: 48px;
+		& .ul01 {
+			color: var(--on-surface-text);
+			font-size: 14px;
+			line-height: 1.4285;
+			list-style: none;
+			margin: 0;
+			padding: 0;
+		}
+	}
+	& .h02 {
+		color: var(--secondary-color);
+		font-weight: normal;
+		padding-top: 48px;
+	}
+	& .div03 {
+		& .ol01 {
+			color: var(--on-surface-text);
+			font-size: 14px;
+			line-height: 1.4285;
+			padding-left: 20px;
+		}
+	}
 }
